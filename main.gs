@@ -739,13 +739,13 @@ loadTimesheets = function (exports) {
     // コマンド集
     var commands = [
       ['actionSignOut', /(バ[ー〜ァ]*イ|ば[ー〜ぁ]*い|おやすみ|お[つっ]ー|おつ|さらば|お先|お疲|帰|乙|bye|night|(c|see)\s*(u|you)|退勤|ごきげんよ|グ[ッ]?バイ)/],
-      ['actionSignOutWithIfttt', /^(\w*) exited the office.$/],
+      ['actionSignOutWithIfttt', /(\w*) exited the office/],
       ['actionWhoIsOff', /(だれ|誰|who\s*is).*(休|やす(ま|み|む))/],
       ['actionWhoIsIn', /(だれ|誰|who\s*is)/],
       ['actionCancelOff', /(休|やす(ま|み|む)|休暇).*(キャンセル|消|止|やめ|ません)/],
       ['actionOff', /(休|やす(ま|み|む)|休暇)/],
       ['actionSignIn', /(モ[ー〜]+ニン|も[ー〜]+にん|おっは|おは|へろ|はろ|ヘロ|ハロ|hi|hello|morning|出勤)/],
-      ['actionSignInWithIfttt', /^(\w*) entered the office.$/],
+      ['actionSignInWithIfttt', /(\w*) entered the office/],
       ['confirmSignIn', /__confirmSignIn__/],
       ['confirmSignOut', /__confirmSignOut__/],
     ];
@@ -782,7 +782,7 @@ loadTimesheets = function (exports) {
   // GPSを利用したIFTTTからの出勤報告
   Timesheets.prototype.actionSignInWithIfttt = function(botname, message) {
     if(this.datetime) {
-      var username = message.match(/^(\w*) entered the office.$/)[1]; // TODO: 正規表現部分が重複しているので、をcommandsから取得するようにしたい
+      var username = message.match(/(\w*) entered the office/)[1]; // TODO: 正規表現部分が重複しているので、をcommandsから取得するようにしたい
       var data = this.storage.get(username, this.datetime);
       if(!data.signIn || data.signIn === '-') {
         this.storage.set(username, this.datetime, {signIn: this.datetime});
@@ -812,7 +812,7 @@ loadTimesheets = function (exports) {
   // GPSを利用したIFTTTからの退勤報告
   Timesheets.prototype.actionSignOutWithIfttt = function(botname, message) {
     if(this.datetime) {
-      var username = message.match(/^(\w*) exited the office.$/)[1]; // TODO: 正規表現部分が重複しているので、をcommandsから取得するようにしたい
+      var username = message.match(/(\w*) exited the office/)[1]; // TODO: 正規表現部分が重複しているので、をcommandsから取得するようにしたい
       var data = this.storage.get(username, this.datetime);
       if(!data.signOut || data.signOut === '-') {
         this.storage.set(username, this.datetime, {signOut: this.datetime});
