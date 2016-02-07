@@ -14,7 +14,7 @@ loadSlack = function () {
 
   // 受信したメッセージをtimesheetsに投げる
   Slack.prototype.receiveMessage = function(message) {
-    var username = String(message.user_name);
+    var username = String(message.bot_name || message.user_name);
     var body = String(message['text']);
 
     // 特定のアカウントには反応しない
