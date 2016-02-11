@@ -77,7 +77,7 @@ function setUp() {
 
     // 休日を設定
     var url = 'http://www.google.com/calendar/feeds/japanese@holiday.calendar.google.com/public/full-noattendees?alt=json&max-results=1000&start-min='+DateUtils.format("Y-m-d", DateUtils.now());
-    var data = JSON.parse(UrlFetchApp.fetch(url).getContentText());
+    var data = JSON.parse(UrlFetchApp.fetch(url,{muteHttpExceptions: true}).getContentText());
     var holidays = _.map(data.feed.entry, function(e) {
       return e['gd$when'][0]['startTime'];
     });
